@@ -13,11 +13,7 @@
   },
   {   
    "ParameterKey": "MasterDBPassword",
-   "ParameterValue": "$[alfred_genpass_16]"
-  },
-  {
-      "ParameterKey": "EmrLogBucket",
-      "ParameterValue": "$[alfred_getmediabucket]"
+   "ParameterValue": "$[taskcat_genpass_16]"
   },
   {
       "ParameterKey": "CreateEmr",
