@@ -379,12 +379,12 @@
         },
         "SolutionStackName": {
             "AllowedValues": [
-                "64bit Amazon Linux 2018.03 v3.0.0 running Tomcat 8 Java 8",
-                "64bit Amazon Linux 2018.03 v3.0.0 running Tomcat 7 Java 7",
-                "64bit Amazon Linux 2018.03 v3.0.0 running Tomcat 7 Java 6"
+                "64bit Amazon Linux 2018.03 v3.0.7 running Tomcat 8 Java 8",
+                "64bit Amazon Linux 2018.03 v3.0.7 running Tomcat 7 Java 7",
+                "64bit Amazon Linux 2018.03 v3.0.7 running Tomcat 7 Java 6"
             ],
             "ConstraintDescription": "Must be a valid and supported technology stack on AWS Elastic Beanstalk",
-            "Default": "64bit Amazon Linux 2018.03 v3.0.0 running Tomcat 8 Java 8",
+            "Default": "64bit Amazon Linux 2018.03 v3.0.7 running Tomcat 8 Java 8",
             "Description": "AWS Elastic Beanstalk technology stack",
             "Type": "String"
         },
@@ -490,6 +490,7 @@
     "Resources": {
         "JupiterBootstrapDownloadPolicy": {
             "Type": "AWS::IAM::Policy",
+            "Condition": "CreateEmrCondition",
             "Properties": {
                 "PolicyName": {
                     "Fn::Join": [
@@ -618,16 +619,16 @@
                 "SecurityGroupIngress": [
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "80",
-                        "ToPort": "80",
+                        "FromPort": 80,
+                        "ToPort": 80,
                         "CidrIp": {
                             "Ref": "RemoteAccessCIDR"
                         }
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "443",
-                        "ToPort": "443",
+                        "FromPort": 443,
+                        "ToPort": 443,
                         "CidrIp": {
                             "Ref": "RemoteAccessCIDR"
                         }
@@ -646,16 +647,16 @@
                 "SecurityGroupIngress": [
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "80",
-                        "ToPort": "80",
+                        "FromPort": 80,
+                        "ToPort": 80,
                         "SourceSecurityGroupId": {
                             "Ref": "JupiterSecurityGroup"
                         }
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "443",
-                        "ToPort": "443",
+                        "FromPort": 443,
+                        "ToPort": 443,
                         "SourceSecurityGroupId": {
                             "Ref": "JupiterSecurityGroup"
                         }
@@ -1201,7 +1202,7 @@
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "8443",
+                "FromPort": 8443,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1215,14 +1216,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "8443"
+                "ToPort": 8443
             }
         },
         "TCPFromSlaveSecurityGroupIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1236,14 +1237,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "TCPFromMasterSecurityGroupIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1264,7 +1265,7 @@
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "-1",
+                "FromPort": -1,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1278,14 +1279,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "-1"
+                "ToPort": -1
             }
         },
         "ICMPFromMasterSecurityGroupIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "-1",
+                "FromPort": -1,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1299,14 +1300,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "-1"
+                "ToPort": -1
             }
         },
         "UDPFromSlaveSecurityGroupIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1320,14 +1321,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "UDPFromMasterSecurityGroupIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrMasterPrivateSecurityGroup",
@@ -1341,14 +1342,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "TCPFromServiceAccessIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "8443",
+                "FromPort": 8443,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1362,14 +1363,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "8443"
+                "ToPort": 8443
             }
         },
         "TCPFromSlaveIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1383,14 +1384,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "TCPFromMasterIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1404,14 +1405,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "ICMPFromSlaveIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "-1",
+                "FromPort": -1,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1425,14 +1426,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "-1"
+                "ToPort": -1
             }
         },
         "ICMPFromMasterIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "-1",
+                "FromPort": -1,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1446,14 +1447,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "-1"
+                "ToPort": -1
             }
         },
         "UDPFromSlaveIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1467,14 +1468,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "UDPFromMasterIngress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
-                "FromPort": "0",
+                "FromPort": 0,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrSlavePrivateSecurityGroup",
@@ -1488,14 +1489,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "65535"
+                "ToPort": 65535
             }
         },
         "TCPMasterEgress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupEgress",
             "Properties": {
-                "FromPort": "8443",
+                "FromPort": 8443,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrServiceAccessSecurityGroup",
@@ -1509,14 +1510,14 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "8443"
+                "ToPort": 8443
             }
         },
         "TCPSlaveEgress": {
             "Condition": "CreateEmrCondition",
             "Type": "AWS::EC2::SecurityGroupEgress",
             "Properties": {
-                "FromPort": "8443",
+                "FromPort": 8443,
                 "GroupId": {
                     "Fn::GetAtt": [
                         "EmrServiceAccessSecurityGroup",
@@ -1530,7 +1531,7 @@
                         "GroupId"
                     ]
                 },
-                "ToPort": "8443"
+                "ToPort": 8443
             }
         },
         "RemoteAccessEmrSecurityGroup": {
@@ -1543,8 +1544,8 @@
                 "SecurityGroupIngress": [
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "0",
-                        "ToPort": "65535",
+                        "FromPort": 0,
+                        "ToPort": 65535,
                         "CidrIp": {
                             "Ref": "RemoteAccessCIDR"
                         }
