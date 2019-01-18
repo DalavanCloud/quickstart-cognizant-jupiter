@@ -1,22 +1,30 @@
 [
-  {
+    {
         "ParameterKey": "AvailabilityZones",
         "ParameterValue": "$[taskcat_getaz_2]"
-  },
-  {
-      "ParameterKey": "KeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
-  },
-  {
-      "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "10.0.0.0/16"
-  },
-  {   
-   "ParameterKey": "MasterDBPassword",
-   "ParameterValue": "$[taskcat_genpass_16]"
-  },
-  {
-      "ParameterKey": "CreateEmr",
-      "ParameterValue": "false"
-  } 
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "$[alfred_getkeypair]"
+    },
+    {
+        "ParameterKey": "RemoteAccessCIDR",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {   
+        "ParameterKey": "MasterDBPassword",
+        "ParameterValue": "$[taskcat_genpass_16]"
+    },
+    {
+        "ParameterKey": "CreateEmr",
+        "ParameterValue": "false"
+    },
+    {
+        "ParameterKey": "EmrLogBucket",
+        "ParameterValue": "$[taskcat_autobucket]"
+    },
+    {
+        "ParameterKey": "QSS3BucketName",
+        "ParameterValue": "$[taskcat_autobucket]"
+    }
 ]
