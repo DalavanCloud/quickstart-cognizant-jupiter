@@ -1553,6 +1553,54 @@
                 ]
             }
         },
+        "JupiterEmrIamRole": {
+            "Type": "AWS::IAM::Role",
+            "Condition": "CreateEmrCondition",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "elasticmapreduce.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ],
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
+                ]
+            }
+        },
+        "JupiterEmrEc2IamRole": {
+            "Type": "AWS::IAM::Role",
+            "Condition": "CreateEmrCondition",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "elasticmapreduce.amazonaws.com"
+                                ]
+                            }
+                        }
+                    ],
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role"
+                ]
+            }
+        },
         "JupiterEmr": {
             "Type": "AWS::EMR::Cluster",
             "Condition": "CreateEmrCondition",
@@ -1674,8 +1722,8 @@
                     ]
                 },
                 "Name": "JupiterEmr",
-                "JobFlowRole": "EMR_EC2_DefaultRole",
-                "ServiceRole": "EMR_DefaultRole",
+                "JobFlowRole": "JupiterEmrEc2IamRole",
+                "ServiceRole": "JupiterEmrIamRole",
                 "VisibleToAllUsers": true
             }
         }

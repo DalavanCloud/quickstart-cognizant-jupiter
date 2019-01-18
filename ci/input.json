@@ -21,7 +21,7 @@
     },
     {
         "ParameterKey": "EmrLogBucket",
-        "ParameterValue": "override-this"
+        "ParameterValue": "$[taskcat_autobucket]"
     },
     {
         "ParameterKey": "QSS3BucketName",
